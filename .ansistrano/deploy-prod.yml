@@ -1,0 +1,20 @@
+---
+- name: Deploy prod
+  hosts: all
+  vars:
+    ansistrano_keep_releases: 3
+    ansistrano_deploy_to: "/var/www/html/sandcamp-demo"
+    ansistrano_allow_anonymous_stats: no
+
+    ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/after-symlink.yml"
+    
+    ansistrano_shared_paths:
+      - docroot/sites/default/files
+    
+    ansistrano_deploy_via: git
+    ansistrano_git_repo: git@github.com:weknowinc/sandcamp-demo.git # Location of the git repository
+    ansistrano_git_branch: master # What version of the repository to check out. This can be the full 40-character SHA-1 hash, the literal string HEAD, a branch name, or a tag name
+    
+
+  roles:
+    - { role: carlosbuenosvinos.ansistrano-deploy }

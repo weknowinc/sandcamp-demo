@@ -1,0 +1,13 @@
+---
+- name: Installl Dependencies (composer)
+  composer:
+    command: install
+    no_dev: false
+    prefer_dist: true
+    optimize_autoloader: true
+    working_dir: "{{ ansistrano_release_path.stdout }}"
+
+- name: Running build command 
+  command: ./bin/drupal build
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
